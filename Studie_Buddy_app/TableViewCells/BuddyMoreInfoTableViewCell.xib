@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="buddyMoreInfoCell" rowHeight="180" id="KGk-i7-Jjw" customClass="BuddyMoreInfoTableViewCell" customModule="Studie_Buddy_app" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="180"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="179.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="E1d-xj-ChX">
+                        <rect key="frame" x="0.0" y="0.0" width="80" height="130"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="80" id="TBg-Ds-Rro"/>
+                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="130" id="eQJ-Aw-QqU"/>
+                            <constraint firstAttribute="height" constant="130" id="i1D-fG-yym"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hxP-L1-aP3">
+                        <rect key="frame" x="80" y="0.0" width="240" height="149.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="drm-ud-kuJ">
+                        <rect key="frame" x="0.0" y="149.5" width="80" height="30"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="80" id="8vw-Yk-SfZ"/>
+                            <constraint firstAttribute="height" constant="30" id="id0-v6-Y9p"/>
+                        </constraints>
+                        <state key="normal" title="Minder info"/>
+                        <connections>
+                            <action selector="btn_click_less_info:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="g7w-OB-mDQ"/>
+                        </connections>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x2j-Lw-hUo">
+                        <rect key="frame" x="80" y="149.5" width="240" height="30"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="30" id="a3S-iK-BSv"/>
+                        </constraints>
+                        <state key="normal" title="Kies deze buddy"/>
+                        <connections>
+                            <action selector="btn_click_choose_buddy:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="A0O-aV-tuU"/>
+                        </connections>
+                    </button>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="E1d-xj-ChX" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="0BU-UR-u54"/>
+                    <constraint firstItem="drm-ud-kuJ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="0zZ-NC-4tM"/>
+                    <constraint firstAttribute="bottom" secondItem="x2j-Lw-hUo" secondAttribute="bottom" id="3VE-pY-snb"/>
+                    <constraint firstItem="E1d-xj-ChX" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="6U8-Ij-dY2"/>
+                    <constraint firstItem="hxP-L1-aP3" firstAttribute="leading" secondItem="E1d-xj-ChX" secondAttribute="trailing" id="CE9-gX-Dm0"/>
+                    <constraint firstAttribute="trailing" secondItem="x2j-Lw-hUo" secondAttribute="trailing" id="CUz-Sc-Zim"/>
+                    <constraint firstItem="x2j-Lw-hUo" firstAttribute="leading" secondItem="drm-ud-kuJ" secondAttribute="trailing" id="G4d-U8-eYT"/>
+                    <constraint firstAttribute="bottom" secondItem="drm-ud-kuJ" secondAttribute="bottom" id="UU1-hs-tGk"/>
+                    <constraint firstItem="hxP-L1-aP3" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="cmy-q4-IUb"/>
+                    <constraint firstAttribute="trailing" secondItem="hxP-L1-aP3" secondAttribute="trailing" id="e1N-KF-6YI"/>
+                    <constraint firstItem="x2j-Lw-hUo" firstAttribute="top" secondItem="hxP-L1-aP3" secondAttribute="bottom" id="e4n-gA-VM9"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="btn_kies_buddy" destination="x2j-Lw-hUo" id="Edd-vs-Syl"/>
+                <outlet property="btn_minder_info" destination="drm-ud-kuJ" id="fiW-6N-LFs"/>
+                <outlet property="img_profiel_foto" destination="E1d-xj-ChX" id="zus-aC-RU4"/>
+                <outlet property="lbl_buddy_info" destination="hxP-L1-aP3" id="EBc-rm-o4Q"/>
+            </connections>
+            <point key="canvasLocation" x="131.8840579710145" y="159.375"/>
+        </tableViewCell>
+    </objects>
+</document>
