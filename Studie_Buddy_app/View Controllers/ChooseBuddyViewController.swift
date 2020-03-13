@@ -11,27 +11,31 @@ import Foundation
 import Kingfisher
 import Alamofire
 
-class ChooseBuddyViewController: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-
+class ChooseBuddyViewController: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate
+{
     @IBOutlet weak var ChooseBuddyTableView: UITableView!
-    var arrayOfBuddies = [Student]()
     @IBOutlet weak var LoadingIndicator: UIActivityIndicatorView!
     @IBOutlet weak var NavigationBar: UINavigationItem!
+    
+    var arrayOfBuddies = [Student]()
+    let moreInfo = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.ChooseBuddyTableView.dataSource = self
-        self.ChooseBuddyTableView.register(UINib(nibName: "ChooseBuddyTableViewCell", bundle: nil), forCellReuseIdentifier: "ChooseBuddyTableViewCell")
-    NavigationBar.title = NSLocalizedString("chooseBuddy", comment: "")
-    self.navigationController!.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor:UIColor.white]
-    self.navigationController!.navigationBar.tintColor = #colorLiteral(red: 1, green: 0.99997437, blue: 0.9999912977, alpha: 1)
-    self.navigationController?.navigationBar.setBackgroundImage(UIImage(named: "Header4"), for: .default)
-    self.navigationController?.navigationBar.shadowImage = UIImage()
-    self.navigationController?.navigationBar.isTranslucent = false
+        self.ChooseBuddyTableView.register(UINib(nibName: "BuddyChooseTableViewCell",   bundle: nil), forCellReuseIdentifier: "BuddyChooseTableViewCell")
+        self.ChooseBuddyTableView.register(UINib(nibName: "BuddyMoreInfoTableViewCell", bundle: nil), forCellReuseIdentifier: "BuddyMoreInfoTableViewCell")
+        ChooseBuddyTableView.separatorStyle = .none
+        
+        NavigationBar.title = NSLocalizedString("chooseBuddy", comment: "")
+        self.navigationController!.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor:UIColor.white]
+        self.navigationController!.navigationBar.tintColor = #colorLiteral(red: 1, green: 0.99997437, blue: 0.9999912977, alpha: 1)
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(named: "Header4"), for: .default)
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+        self.navigationController?.navigationBar.isTranslucent = false
         self.navigationController?.view.backgroundColor = .clear
         
-        ChooseBuddyTableView.separatorStyle = .none
         LoadingIndicator.startAnimating()
         LoadingIndicator.isHidden = false
         
@@ -39,14 +43,17 @@ class ChooseBuddyViewController: UITableViewController, UIImagePickerControllerD
         _ = Timer.scheduledTimer(timeInterval: 5.0,target: self,selector: #selector(execute),userInfo: nil,repeats: true)
     }
     
-    @objc func execute() {
+    @objc func execute()
+    {
         ApiManager.getAllCoachProfiles().responseData(completionHandler: { [weak self] (response) in
             let jsonData = response.data!
             let decoder = JSONDecoder()
             let NewBuddyList = try? decoder.decode([Student].self, from: jsonData)
-            if NewBuddyList != nil {
+            if NewBuddyList != nil
+            {
                 self?.arrayOfBuddies = [] //
-                for item in NewBuddyList!{
+                for item in NewBuddyList!
+                {
                     self?.arrayOfBuddies.append(item)
                 }
                 self!.LoadingIndicator.stopAnimating()
@@ -56,62 +63,76 @@ class ChooseBuddyViewController: UITableViewController, UIImagePickerControllerD
                 let lastRow: Int = self!.ChooseBuddyTableView.numberOfRows(inSection: 0) - 1
                 self!.ChooseBuddyTableView.scrollToRow(at: IndexPath(row: lastRow, section: 0), at: .bottom, animated: false)
             }
+            self.ChooseBuddyTableView.reloadData()
         })
     }
 }
 
-extension ChooseBuddyViewController: AppDelegate, SceneDelegate, UITableViewDelegate, UITableViewDataSource{
-    
+extension ChooseBuddyViewController: AppDelegate, SceneDelegate, UITableViewDelegate, UITableViewDataSource
+{
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         return arrayOfBuddies.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        /*if(arrayOfBuddies[indexPath.row].cell == 1){
-            let cell = Bundle.main.loadNibNamed("BuddyChooseTableViewCell", owner: self, options: nil)?.first as! BuddyChooseTableViewCell
-            cell.img_profiel_foto.image = arrayOfBuddies[indexPath.row].image
-            cell.lbl_buddy_info.text = arrayOfBuddies[indexPath.row].text
+        let buddy = arrayOfBuddies[indexPath.row]
+        if(buddy.more_info == true)
+        {
+            let cell_more_info = ChooseBuddyTableView.dequeueReusableCell(withIdentifier: "BuddyMoreInfoTableViewCell", for: indexPath) as! BuddyMoreInfoTableViewCell
+            cell_more_info.lbl_name.text = buddy.name
+            cell_more_info.lbl_interests.text = buddy.interests
+            cell_more_info.img_profile_picture.image = buddy.image
+            cell_more_info.delegate=self
+            return cell_more_info
+        }
+        else
+        {
+            let cell = ChooseBuddyTableView.dequeueReusableCell(withIdentifier: "BuddyChooseTableViewCell", for: indexPath) as! BuddyChooseTableViewCell
+            cell.lbl_name.text = buddy.name
+            cell.lbl_interests.text = buddy.interests
+            cell.img_profile_picture.image = buddy.image
             cell.delegate=self
             return cell
         }
-        else if(arrayOfBuddies[indexPath.row].cell == 2){
-            let cell = Bundle.main.loadNibNamed("BuddyMoreInfoTableViewCell", owner: self, options: nil)?.first as! BuddyMoreInfoTableViewCell
-            cell.img_profiel_foto.image = arrayOfBuddies[indexPath.row].image
-            cell.lbl_buddy_info.text = arrayOfBuddies[indexPath.row].text
-            cell.delegate=self
-            return cell
-        }
-        else {*/
-            let cell = Bundle.main.loadNibNamed("BuddyChooseTableViewCell", owner: self, options: nil)?.first as! BuddyChooseTableViewCell
-            cell.img_profiel_foto.image = nil //arrayOfBuddies[indexPath.row].image
-            cell.lbl_buddy_info.text = "test" //arrayOfBuddies[indexPath.row].text
-            cell.delegate=self
-            return cell
-        //}
     }
     
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        /*if(arrayOfBuddies[indexPath.row].cell == 1){
-            return 130
-        }
-        else if(arrayOfBuddies[indexPath.row].cell == 2){
-            return 180
-        }
-        else {*/
-            return 130
-        //}
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
+    {
+        let buddy = arrayOfBuddies[indexPath.row]
+        if(buddy.more_info == true){ return 180 }
+        else                       { return 130 }
     }
 }
 
-extension ChooseBuddyViewController: BuddyChooseCellDelegate, BuddyMoreInfoCellDelegate{
-    func clicked_more_info(buddy_info: String){
-        
+extension ChooseBuddyViewController: BuddyChooseCellDelegate, BuddyMoreInfoCellDelegate
+{
+    func clicked_more_info(buddy_name: String)
+    {
+        for i in 0..<arrayOfBuddies.count
+        {
+            if (arrayOfBuddies[i].firstname == student_name)
+            {
+                arrayOfBuddies[i].more_info = true
+            }
+        }
+        ChooseBuddyTableView.reloadData()
     }
-    func clicked_less_info(buddy_info: String){
-        
+    
+    func clicked_less_info(buddy_name: String)
+    {
+        for i in 0..<arrayOfBuddies.count
+        {
+            if (arrayOfBuddies[i].firstname == student_name)
+            {
+                arrayOfBuddies[i].more_info = false
+            }
+            
+        }
+        ChooseBuddyTableView.reloadData()
     }
-    func clicked_choose_buddy(buddy_id: Int, buddy_naam: String){
+    
+    func clicked_choose_buddy(buddy_id: Int, buddy_name: String){
         //alert bevestiging
         let alert_title = "Bevestiging"
         let alert_message = "Weet je zeker dat je \(buddy_naam) als buddy wilt?"

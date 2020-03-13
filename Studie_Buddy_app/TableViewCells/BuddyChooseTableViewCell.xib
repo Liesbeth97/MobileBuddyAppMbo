@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -26,7 +26,10 @@
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M2n-XY-tHI">
-                        <rect key="frame" x="80" y="0.0" width="240" height="109.5"/>
+                        <rect key="frame" x="85" y="0.0" width="235" height="20.5"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="20.5" id="h3y-Hk-ldW"/>
+                        </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -38,28 +41,38 @@
                         </constraints>
                         <state key="normal" title="Meer info"/>
                         <connections>
-                            <action selector="btn_click_more_info:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Gew-s8-sRx"/>
+                            <action selector="btn_click_more_info:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="nio-wF-aLj"/>
                         </connections>
                     </button>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6kG-ed-SD7">
+                        <rect key="frame" x="85" y="20.5" width="235" height="89"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="bottom" secondItem="sdf-Rd-SOt" secondAttribute="bottom" id="3QC-qW-sx0"/>
+                    <constraint firstItem="sdf-Rd-SOt" firstAttribute="top" secondItem="6kG-ed-SD7" secondAttribute="bottom" id="75e-gc-xxy"/>
                     <constraint firstItem="sdf-Rd-SOt" firstAttribute="leading" secondItem="tAf-SI-08D" secondAttribute="trailing" id="Ci4-Eg-cxh"/>
-                    <constraint firstItem="sdf-Rd-SOt" firstAttribute="top" secondItem="M2n-XY-tHI" secondAttribute="bottom" id="FUg-a6-qbB"/>
                     <constraint firstItem="tAf-SI-08D" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="PFs-79-xOO"/>
+                    <constraint firstAttribute="trailing" secondItem="6kG-ed-SD7" secondAttribute="trailing" id="Q9T-NP-7bf"/>
                     <constraint firstItem="tAf-SI-08D" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="ULB-4H-Dw7"/>
                     <constraint firstAttribute="bottom" secondItem="tAf-SI-08D" secondAttribute="bottom" id="i4k-tR-z1C"/>
-                    <constraint firstItem="M2n-XY-tHI" firstAttribute="leading" secondItem="tAf-SI-08D" secondAttribute="trailing" id="k68-pJ-BeV"/>
+                    <constraint firstItem="M2n-XY-tHI" firstAttribute="leading" secondItem="tAf-SI-08D" secondAttribute="trailing" constant="5" id="k68-pJ-BeV"/>
                     <constraint firstAttribute="trailing" secondItem="sdf-Rd-SOt" secondAttribute="trailing" id="l3A-Eh-lIV"/>
+                    <constraint firstItem="6kG-ed-SD7" firstAttribute="leading" secondItem="tAf-SI-08D" secondAttribute="trailing" constant="5" id="m1x-KB-Eyv"/>
                     <constraint firstAttribute="trailing" secondItem="M2n-XY-tHI" secondAttribute="trailing" id="qBM-h3-0ib"/>
+                    <constraint firstItem="6kG-ed-SD7" firstAttribute="top" secondItem="M2n-XY-tHI" secondAttribute="bottom" id="t76-UV-Glz"/>
                     <constraint firstItem="M2n-XY-tHI" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="u9A-WF-dGD"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
-                <outlet property="btn_meer_info" destination="sdf-Rd-SOt" id="Yvq-Wn-Cbw"/>
-                <outlet property="img_profiel_foto" destination="tAf-SI-08D" id="BQQ-c9-qTV"/>
-                <outlet property="lbl_buddy_info" destination="M2n-XY-tHI" id="Jpl-f1-lBJ"/>
+                <outlet property="btn_more_info" destination="sdf-Rd-SOt" id="uKN-sb-Phg"/>
+                <outlet property="img_profile_picture" destination="tAf-SI-08D" id="d1I-Dn-6tB"/>
+                <outlet property="lbl_interests" destination="6kG-ed-SD7" id="HeG-bw-s6X"/>
+                <outlet property="lbl_name" destination="M2n-XY-tHI" id="PUV-D6-amb"/>
             </connections>
             <point key="canvasLocation" x="131.8840579710145" y="142.63392857142856"/>
         </tableViewCell>

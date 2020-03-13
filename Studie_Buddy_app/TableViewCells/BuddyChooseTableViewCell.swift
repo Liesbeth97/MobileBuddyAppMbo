@@ -9,19 +9,22 @@
 import UIKit
 
 protocol BuddyChooseCellDelegate {
-    func clicked_more_info(buddy_info: String)
+    func clicked_more_info(buddy_name: String)
 }
 
 class BuddyChooseTableViewCell: UITableViewCell {
     
-    @IBOutlet weak var img_profiel_foto: UIImageView!
-    @IBOutlet weak var lbl_buddy_info: UILabel!
-    @IBOutlet weak var btn_meer_info: UIButton!
+    @IBOutlet weak var img_profile_picture: UIImageView!
+    @IBOutlet weak var lbl_name: UILabel!
+    @IBOutlet weak var lbl_interests: UILabel!
+    @IBOutlet weak var btn_more_info: UIButton!
     
     var delegate: BuddyChooseCellDelegate?
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        btn_more_info.setTitle("Meer info", for: .normal)
+        
             //HeaderImage.image = ...
             // Initialization code
         
@@ -40,6 +43,7 @@ class BuddyChooseTableViewCell: UITableViewCell {
     }
     
     @IBAction func btn_click_more_info(_ sender: Any) {
-        delegate?.clicked_more_info(buddy_info: "Test")
+        let name = lbl_name.text!
+        delegate?.clicked_more_info(buddy_name: name)
     }
 }

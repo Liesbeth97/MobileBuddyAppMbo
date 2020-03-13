@@ -19,7 +19,7 @@ class Student: Codable{
     var study: String
     var studyyear: Int
     var interests: String
-    
+    var more_info: Bool
     
     
     enum CodingKeys: String, CodingKey{
@@ -33,7 +33,7 @@ class Student: Codable{
         case study = "study"
         case studyyear = "studyYear"
         case interests = "interests"
-        
+        case more_info = "more_info"
     }
 }
 
