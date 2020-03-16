@@ -10,6 +10,7 @@ import UIKit
 import Foundation
 import Kingfisher
 import Alamofire
+import SwiftKeychainWrapper
 
 class ChooseBuddyViewController: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate
 {
@@ -28,7 +29,7 @@ class ChooseBuddyViewController: UITableViewController, UIImagePickerControllerD
         self.ChooseBuddyTableView.register(UINib(nibName: "BuddyMoreInfoTableViewCell", bundle: nil), forCellReuseIdentifier: "BuddyMoreInfoTableViewCell")
         ChooseBuddyTableView.separatorStyle = .none
         
-        NavigationBar.title = NSLocalizedString("chooseBuddy", comment: "")
+        NavigationBar.title = NSLocalizedString("chooseBuddyHeader", comment: "")
         self.navigationController!.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor:UIColor.white]
         self.navigationController!.navigationBar.tintColor = #colorLiteral(red: 1, green: 0.99997437, blue: 0.9999912977, alpha: 1)
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(named: "Header4"), for: .default)
@@ -80,18 +81,18 @@ extension ChooseBuddyViewController: AppDelegate, SceneDelegate, UITableViewDele
         if(buddy.more_info == true)
         {
             let cell_more_info = ChooseBuddyTableView.dequeueReusableCell(withIdentifier: "BuddyMoreInfoTableViewCell", for: indexPath) as! BuddyMoreInfoTableViewCell
-            cell_more_info.lbl_name.text = buddy.name
+            cell_more_info.lbl_name.text = buddy.firstname
             cell_more_info.lbl_interests.text = buddy.interests
-            cell_more_info.img_profile_picture.image = buddy.image
+            cell_more_info.img_profile_picture.image = buddy.photo
             cell_more_info.delegate=self
             return cell_more_info
         }
         else
         {
             let cell = ChooseBuddyTableView.dequeueReusableCell(withIdentifier: "BuddyChooseTableViewCell", for: indexPath) as! BuddyChooseTableViewCell
-            cell.lbl_name.text = buddy.name
+            cell.lbl_name.text = buddy.firstname
             cell.lbl_interests.text = buddy.interests
-            cell.img_profile_picture.image = buddy.image
+            cell.img_profile_picture.image = buddy.photo
             cell.delegate=self
             return cell
         }
@@ -111,10 +112,8 @@ extension ChooseBuddyViewController: BuddyChooseCellDelegate, BuddyMoreInfoCellD
     {
         for i in 0..<arrayOfBuddies.count
         {
-            if (arrayOfBuddies[i].firstname == student_name)
-            {
-                arrayOfBuddies[i].more_info = true
-            }
+            if (arrayOfBuddies[i].firstname == buddy_name) {
+                arrayOfBuddies[i].more_info = true         }
         }
         ChooseBuddyTableView.reloadData()
     }
@@ -123,34 +122,37 @@ extension ChooseBuddyViewController: BuddyChooseCellDelegate, BuddyMoreInfoCellD
     {
         for i in 0..<arrayOfBuddies.count
         {
-            if (arrayOfBuddies[i].firstname == student_name)
-            {
-                arrayOfBuddies[i].more_info = false
-            }
+            if (arrayOfBuddies[i].firstname == buddy_name) {
+                arrayOfBuddies[i].more_info = false        }
             
         }
         ChooseBuddyTableView.reloadData()
     }
     
-    func clicked_choose_buddy(buddy_id: Int, buddy_name: String){
+    func clicked_choose_buddy(buddy_name: String){
         //alert bevestiging
-        let alert_title = "Bevestiging"
-        let alert_message = "Weet je zeker dat je \(buddy_naam) als buddy wilt?"
-        let alert = UIAlertController(title: alert_title, message: alert_message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Nee", style: .default, handler: nil))
-        alert.addAction(UIAlertAction(title: "Ja", style: .default, handler: nil))
+        var alert_title = NSLocalizedString("confirmation", comment: "")
+        var alert_message = "Weet je zeker dat je \(buddy_naam) als buddy wilt?"
+        var alert = UIAlertController(title: alert_title, message: alert_message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: NSLocalizedString("no", comment: ""), style: .default, handler: nil))
+        alert.addAction(UIAlertAction(title: NSLocalizedString("yes", comment: ""), style: .default, handler: nil))
         present(alert, animated: true, completion: nil)
         
         //API call om de studenten te koppelen
-        let coachID = buddy_id
-        let tutorantID = KeychainWrapper.standard.string(forKey: "StudentID")
-        ApiManager.MakeCoachTutorantMatch(coachID, TutorantID)
+        var coachID = 0
+        for i in 0..<arrayOfBuddies.count
+        {
+            if (arrayOfBuddies[i].firstname == buddy_name) {
+                coachID = arrayOfBuddies[i].studentid      }
+        }
+        var tutorantID = KeychainWrapper.standard.string(forKey: "StudentID")
+        ApiManager.MakeCoachTutorantMatch(coachID, tutorantID)
         
         //alert nieuwe buddy
-        alert_title = "Nieuwe buddy!"
-        alert_message = "\(buddy_naam) is je niewe buddy"
+        alert_title = NSLocalizedString("newBuddy", comment: "")
+        alert_message = "\(buddy_name) is je niewe buddy"
         alert = UIAlertController(title: alert_title, message: alert_message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Oke", style: .default, handler: nil))
+        alert.addAction(UIAlertAction(title: NSLocalizedString("oke", comment: ""), style: .default, handler: nil))
         present(alert, animated: true, completion: nil)
         
         //ga naar home

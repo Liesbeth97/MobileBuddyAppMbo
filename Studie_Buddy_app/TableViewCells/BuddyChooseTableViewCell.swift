@@ -23,7 +23,7 @@ class BuddyChooseTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        btn_more_info.setTitle("Meer info", for: .normal)
+        btn_more_info.setTitle(NSLocalizedString("moreInfo", comment: ""), for: .normal)
         
             //HeaderImage.image = ...
             // Initialization code

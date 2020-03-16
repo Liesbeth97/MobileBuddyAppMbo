@@ -27,9 +27,9 @@ class BuddyMoreInfoTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        btn_less_info.setTitle("Minder info", for: .normal)
-        btn_kies_buddy.backgroundColor = InhollandPink
-        btn_kies_buddy.tintColor = UIColor.white
+        btn_less_info.setTitle(NSLocalizedString("lessInfo", comment: ""), for: .normal)
+        btn_choose_buddy.backgroundColor = InhollandPink
+        btn_choose_buddy.tintColor = UIColor.white
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -40,10 +40,11 @@ class BuddyMoreInfoTableViewCell: UITableViewCell {
     
     @IBAction func btn_click_less_info(_ sender: Any) {
         let name = lbl_name.text!
-        delegate?.clicked_less_info(student_name: name)
+        delegate?.clicked_less_info(buddy_name: name)
     }
     
     @IBAction func btn_click_choose_buddy(_ sender: Any) {
-        delegate?.clicked_choose_buddy(buddy_id: 5, buddy_name: "Test")
+        let name = lbl_name.text!
+        delegate?.clicked_choose_buddy(buddy_name: name)
     }
 }

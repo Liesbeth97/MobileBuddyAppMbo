@@ -44,7 +44,7 @@
                         </constraints>
                         <state key="normal" title="Minder info"/>
                         <connections>
-                            <action selector="btn_click_less_info:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="837-ge-uUa"/>
+                            <action selector="btn_click_less_info:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="HAu-T3-d45"/>
                         </connections>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x2j-Lw-hUo">
@@ -54,7 +54,7 @@
                         </constraints>
                         <state key="normal" title="Kies deze buddy"/>
                         <connections>
-                            <action selector="btn_click_choose_buddy:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="hTB-vC-El5"/>
+                            <action selector="btn_click_choose_buddy:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="AJe-Pc-1Qr"/>
                         </connections>
                     </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gb3-zX-ijz">
@@ -83,8 +83,8 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
-                <outlet property="btn_choose_buddy" destination="x2j-Lw-hUo" id="MV3-Rm-EIn"/>
-                <outlet property="btn_less_info" destination="drm-ud-kuJ" id="mxm-qy-GpI"/>
+                <outlet property="btn_choose_buddy" destination="x2j-Lw-hUo" id="azt-oF-43J"/>
+                <outlet property="btn_less_info" destination="drm-ud-kuJ" id="E1j-JZ-xmz"/>
                 <outlet property="img_profile_picture" destination="E1d-xj-ChX" id="H9u-75-Aq0"/>
                 <outlet property="lbl_interests" destination="gb3-zX-ijz" id="UIF-Md-f9u"/>
                 <outlet property="lbl_name" destination="hxP-L1-aP3" id="LZj-31-GED"/>
