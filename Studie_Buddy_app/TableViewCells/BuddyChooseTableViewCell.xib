@@ -45,19 +45,33 @@
                         </connections>
                     </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6kG-ed-SD7">
-                        <rect key="frame" x="85" y="20.5" width="235" height="89"/>
+                        <rect key="frame" x="85" y="20.5" width="235" height="20.5"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="20.5" id="t9S-8e-8uf"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X0x-do-Cr3">
+                        <rect key="frame" x="85" y="41" width="235" height="20.5"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="20.5" id="8nX-4J-GMV"/>
+                        </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
                 <constraints>
+                    <constraint firstAttribute="trailing" secondItem="X0x-do-Cr3" secondAttribute="trailing" id="0E5-CU-1rI"/>
                     <constraint firstAttribute="bottom" secondItem="sdf-Rd-SOt" secondAttribute="bottom" id="3QC-qW-sx0"/>
-                    <constraint firstItem="sdf-Rd-SOt" firstAttribute="top" secondItem="6kG-ed-SD7" secondAttribute="bottom" id="75e-gc-xxy"/>
                     <constraint firstItem="sdf-Rd-SOt" firstAttribute="leading" secondItem="tAf-SI-08D" secondAttribute="trailing" id="Ci4-Eg-cxh"/>
+                    <constraint firstItem="X0x-do-Cr3" firstAttribute="leading" secondItem="tAf-SI-08D" secondAttribute="trailing" constant="5" id="DTU-zD-u8u"/>
                     <constraint firstItem="tAf-SI-08D" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="PFs-79-xOO"/>
                     <constraint firstAttribute="trailing" secondItem="6kG-ed-SD7" secondAttribute="trailing" id="Q9T-NP-7bf"/>
                     <constraint firstItem="tAf-SI-08D" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="ULB-4H-Dw7"/>
+                    <constraint firstItem="X0x-do-Cr3" firstAttribute="top" secondItem="6kG-ed-SD7" secondAttribute="bottom" id="Wjj-Dk-Yet"/>
                     <constraint firstAttribute="bottom" secondItem="tAf-SI-08D" secondAttribute="bottom" id="i4k-tR-z1C"/>
                     <constraint firstItem="M2n-XY-tHI" firstAttribute="leading" secondItem="tAf-SI-08D" secondAttribute="trailing" constant="5" id="k68-pJ-BeV"/>
                     <constraint firstAttribute="trailing" secondItem="sdf-Rd-SOt" secondAttribute="trailing" id="l3A-Eh-lIV"/>
@@ -71,8 +85,9 @@
             <connections>
                 <outlet property="btn_more_info" destination="sdf-Rd-SOt" id="uKN-sb-Phg"/>
                 <outlet property="img_profile_picture" destination="tAf-SI-08D" id="d1I-Dn-6tB"/>
-                <outlet property="lbl_interests" destination="6kG-ed-SD7" id="HeG-bw-s6X"/>
+                <outlet property="lbl_age" destination="6kG-ed-SD7" id="Xhz-Gf-nhF"/>
                 <outlet property="lbl_name" destination="M2n-XY-tHI" id="PUV-D6-amb"/>
+                <outlet property="lbl_study" destination="X0x-do-Cr3" id="NYZ-du-smG"/>
             </connections>
             <point key="canvasLocation" x="131.8840579710145" y="142.63392857142856"/>
         </tableViewCell>

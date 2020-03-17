@@ -80,19 +80,22 @@ extension ChooseBuddyViewController: AppDelegate, SceneDelegate, UITableViewDele
         let buddy = arrayOfBuddies[indexPath.row]
         if(buddy.more_info == true)
         {
-            let cell_more_info = ChooseBuddyTableView.dequeueReusableCell(withIdentifier: "BuddyMoreInfoTableViewCell", for: indexPath) as! BuddyMoreInfoTableViewCell
-            cell_more_info.lbl_name.text = buddy.firstname
-            cell_more_info.lbl_interests.text = buddy.interests
-            cell_more_info.img_profile_picture.image = buddy.photo
+            let cell_more_info = tableView.dequeueReusableCell(withIdentifier: "BuddyMoreInfoTableViewCell", for: indexPath) as! BuddyMoreInfoTableViewCell
+            cell_more_info.lbl_name.text = String(format: NSLocalizedString("name", comment: ""), buddy.firstname, buddy.surname)
+            cell_more_info.lbl_interests.text = String(format: NSLocalizedString("bio", comment: ""), buddy.interests)
+            cell_more_info.img_profile_picture.image = buddy.image
+            cell_more_info.student_number = buddy.studentid
             cell_more_info.delegate=self
             return cell_more_info
         }
         else
         {
-            let cell = ChooseBuddyTableView.dequeueReusableCell(withIdentifier: "BuddyChooseTableViewCell", for: indexPath) as! BuddyChooseTableViewCell
-            cell.lbl_name.text = buddy.firstname
-            cell.lbl_interests.text = buddy.interests
-            cell.img_profile_picture.image = buddy.photo
+            let cell = tableView.dequeueReusableCell(withIdentifier: "BuddyChooseTableViewCell", for: indexPath) as! BuddyChooseTableViewCell
+            cell.lbl_name.text = String(format: NSLocalizedString("name", comment: ""), buddy.firstname, buddy.surname)
+            cell.lbl_age.text = String(format: NSLocalizedString("age", comment: ""), buddy.age)
+            cell.lbl_study.text = String(format: NSLocalizedString("study", comment: ""), buddy.study)
+            cell.img_profile_picture.image = buddy.image
+            cell.student_number = buddy.studentid
             cell.delegate=self
             return cell
         }
@@ -102,55 +105,62 @@ extension ChooseBuddyViewController: AppDelegate, SceneDelegate, UITableViewDele
     {
         let buddy = arrayOfBuddies[indexPath.row]
         if(buddy.more_info == true){ return 180 }
-        else                       { return 130 }
+        else                       { return 100 }
     }
 }
 
 extension ChooseBuddyViewController: BuddyChooseCellDelegate, BuddyMoreInfoCellDelegate
 {
-    func clicked_more_info(buddy_name: String)
+    func clicked_more_info(student_number: Int)
     {
         for i in 0..<arrayOfBuddies.count
         {
-            if (arrayOfBuddies[i].firstname == buddy_name) {
-                arrayOfBuddies[i].more_info = true         }
+            if (arrayOfBuddies[i].studentid == student_number)
+            {
+                arrayOfBuddies[i].more_info = true
+            }
+        }
+        ChooseBuddyTableView.reloadData()
+    }
+    func clicked_less_info(student_number: Int){
+        for i in 0..<arrayOfBuddies.count
+        {
+            if (arrayOfBuddies[i].studentid == student_number)
+            {
+                arrayOfBuddies[i].more_info = false
+            }
         }
         ChooseBuddyTableView.reloadData()
     }
     
-    func clicked_less_info(buddy_name: String)
-    {
+    
+    func clicked_choose_buddy(student_number: Int){
+        //get buddy name
+        var buddy_name = ""
         for i in 0..<arrayOfBuddies.count
         {
-            if (arrayOfBuddies[i].firstname == buddy_name) {
-                arrayOfBuddies[i].more_info = false        }
-            
+            if (arrayOfBuddies[i].student_number == student_number)
+            {
+                buddy_name = arrayOfBuddies[i].firstname
+            }
         }
-        ChooseBuddyTableView.reloadData()
-    }
-    
-    func clicked_choose_buddy(buddy_name: String){
-        //alert bevestiging
+        
+        //alert confirmation
         var alert_title = NSLocalizedString("confirmation", comment: "")
-        var alert_message = "Weet je zeker dat je \(buddy_naam) als buddy wilt?"
+        var alert_message = String(format: NSLocalizedString("confirmationMsg", comment: ""), buddy_name)
         var alert = UIAlertController(title: alert_title, message: alert_message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: NSLocalizedString("no", comment: ""), style: .default, handler: nil))
         alert.addAction(UIAlertAction(title: NSLocalizedString("yes", comment: ""), style: .default, handler: nil))
         present(alert, animated: true, completion: nil)
         
         //API call om de studenten te koppelen
-        var coachID = 0
-        for i in 0..<arrayOfBuddies.count
-        {
-            if (arrayOfBuddies[i].firstname == buddy_name) {
-                coachID = arrayOfBuddies[i].studentid      }
-        }
+        var coachID = student_number
         var tutorantID = KeychainWrapper.standard.string(forKey: "StudentID")
         ApiManager.MakeCoachTutorantMatch(coachID, tutorantID)
         
         //alert nieuwe buddy
-        alert_title = NSLocalizedString("newBuddy", comment: "")
-        alert_message = "\(buddy_name) is je niewe buddy"
+        alert_title = NSLocalizedString("newBuddyTitle", comment: "")
+        alert_message = String(format: NSLocalizedString("newBuddyMsg", comment: ""), buddy_name)
         alert = UIAlertController(title: alert_title, message: alert_message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: NSLocalizedString("oke", comment: ""), style: .default, handler: nil))
         present(alert, animated: true, completion: nil)

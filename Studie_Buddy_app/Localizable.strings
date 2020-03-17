@@ -39,7 +39,14 @@
 "lessInfo"          = "Minder info";
 "chooseBuddy"       = "Kies deze buddy";
 "confirmation"      = "Bevestiging";
-"no"                = "Nee"
-"yes"               = "Ja"
-"oke"               = "Oke"
-"newBuddy"          = "Nieuwe buddy!"
+"confirmationMsg"   = "Weet je zeker dat je %@ als buddy wilt?";
+"no"                = "Nee";
+"yes"               = "Ja";
+"oke"               = "Oke";
+"newBuddyTitle"     = "Nieuwe buddy!";
+"newBuddyMsg"       = "%@ is je niewe buddy";
+"name"              = "Naam: %@ %@";
+"age"               = "Leeftijd: %@";
+"study"             = "Opleiding: %@";
+"bio"               = "Bio: %@";
+

@@ -9,17 +9,19 @@
 import UIKit
 
 protocol BuddyChooseCellDelegate {
-    func clicked_more_info(buddy_name: String)
+    func clicked_more_info(student_number: Int)
 }
 
 class BuddyChooseTableViewCell: UITableViewCell {
     
     @IBOutlet weak var img_profile_picture: UIImageView!
     @IBOutlet weak var lbl_name: UILabel!
-    @IBOutlet weak var lbl_interests: UILabel!
+    @IBOutlet weak var lbl_study: UILabel!
+    @IBOutlet weak var lbl_age: UILabel!
     @IBOutlet weak var btn_more_info: UIButton!
     
     var delegate: BuddyChooseCellDelegate?
+    var student_number: Int?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -43,7 +45,6 @@ class BuddyChooseTableViewCell: UITableViewCell {
     }
     
     @IBAction func btn_click_more_info(_ sender: Any) {
-        let name = lbl_name.text!
-        delegate?.clicked_more_info(buddy_name: name)
+        delegate?.clicked_more_info(student_number: student_number!)
     }
 }

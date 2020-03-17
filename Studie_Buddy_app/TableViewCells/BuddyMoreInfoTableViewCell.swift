@@ -9,8 +9,8 @@
 import UIKit
 
 protocol BuddyMoreInfoCellDelegate {
-    func clicked_less_info(buddy_name: String)
-    func clicked_choose_buddy(buddy_name: String)
+    func clicked_less_info(student_number: Int)
+    func clicked_choose_buddy(student_number: Int)
 }
 
 class BuddyMoreInfoTableViewCell: UITableViewCell {
@@ -23,6 +23,7 @@ class BuddyMoreInfoTableViewCell: UITableViewCell {
     let InhollandPink = UIColor(red: 235.0/255.0, green: 0.0/255.0, blue: 145.0/255.0, alpha: 1.0)
     
     var delegate: BuddyMoreInfoCellDelegate?
+    var student_number: Int?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -39,12 +40,10 @@ class BuddyMoreInfoTableViewCell: UITableViewCell {
     }
     
     @IBAction func btn_click_less_info(_ sender: Any) {
-        let name = lbl_name.text!
-        delegate?.clicked_less_info(buddy_name: name)
+        delegate?.clicked_less_info(student_number: student_number!)
     }
     
     @IBAction func btn_click_choose_buddy(_ sender: Any) {
-        let name = lbl_name.text!
-        delegate?.clicked_choose_buddy(buddy_name: name)
+        delegate?.clicked_choose_buddy(student_number: student_number)
     }
 }
