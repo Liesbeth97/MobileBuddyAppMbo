@@ -17,7 +17,7 @@ class BuddyChooseTableViewCell: UITableViewCell {
     @IBOutlet weak var img_profile_picture: UIImageView!
     @IBOutlet weak var lbl_name: UILabel!
     @IBOutlet weak var lbl_study: UILabel!
-    @IBOutlet weak var lbl_age: UILabel!
+    @IBOutlet weak var lbl_studyyear: UILabel!
     @IBOutlet weak var btn_more_info: UIButton!
     
     var delegate: BuddyChooseCellDelegate?

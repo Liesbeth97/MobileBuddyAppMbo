@@ -17,6 +17,8 @@ class BuddyMoreInfoTableViewCell: UITableViewCell {
 
     @IBOutlet weak var img_profile_picture: UIImageView!
     @IBOutlet weak var lbl_name: UILabel!
+    @IBOutlet weak var lbl_study: UILabel!
+    @IBOutlet weak var lbl_studyyear: UILabel!
     @IBOutlet weak var lbl_interests: UILabel!
     @IBOutlet weak var btn_less_info: UIButton!
     @IBOutlet weak var btn_choose_buddy: UIButton!
@@ -44,6 +46,6 @@ class BuddyMoreInfoTableViewCell: UITableViewCell {
     }
     
     @IBAction func btn_click_choose_buddy(_ sender: Any) {
-        delegate?.clicked_choose_buddy(student_number: student_number)
+        delegate?.clicked_choose_buddy(student_number: student_number!)
     }
 }

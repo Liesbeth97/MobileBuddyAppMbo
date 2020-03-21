@@ -49,4 +49,5 @@
 "age"               = "Leeftijd: %@";
 "study"             = "Opleiding: %@";
 "bio"               = "Bio: %@";
+"studyyear"         = "Schooljaar: %@"
 

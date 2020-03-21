@@ -69,7 +69,7 @@ class ChooseBuddyViewController: UITableViewController, UIImagePickerControllerD
     }
 }
 
-extension ChooseBuddyViewController: AppDelegate, SceneDelegate, UITableViewDelegate, UITableViewDataSource
+extension ChooseBuddyViewController//: UITableViewDelegate, UITableViewDataSource
 {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
@@ -82,8 +82,10 @@ extension ChooseBuddyViewController: AppDelegate, SceneDelegate, UITableViewDele
         {
             let cell_more_info = tableView.dequeueReusableCell(withIdentifier: "BuddyMoreInfoTableViewCell", for: indexPath) as! BuddyMoreInfoTableViewCell
             cell_more_info.lbl_name.text = String(format: NSLocalizedString("name", comment: ""), buddy.firstname, buddy.surname)
+            cell_more_info.lbl_studyyear.text = String(format: NSLocalizedString("studyyear", comment: ""), buddy.studyyear)
+            cell_more_info.lbl_study.text = String(format: NSLocalizedString("study", comment: ""), buddy.study)
             cell_more_info.lbl_interests.text = String(format: NSLocalizedString("bio", comment: ""), buddy.interests)
-            cell_more_info.img_profile_picture.image = buddy.image
+            cell_more_info.img_profile_picture.image = buddy.photo
             cell_more_info.student_number = buddy.studentid
             cell_more_info.delegate=self
             return cell_more_info
@@ -92,9 +94,9 @@ extension ChooseBuddyViewController: AppDelegate, SceneDelegate, UITableViewDele
         {
             let cell = tableView.dequeueReusableCell(withIdentifier: "BuddyChooseTableViewCell", for: indexPath) as! BuddyChooseTableViewCell
             cell.lbl_name.text = String(format: NSLocalizedString("name", comment: ""), buddy.firstname, buddy.surname)
-            cell.lbl_age.text = String(format: NSLocalizedString("age", comment: ""), buddy.age)
+            cell.lbl_studyyear.text = String(format: NSLocalizedString("studyyear", comment: ""), buddy.studyyear)
             cell.lbl_study.text = String(format: NSLocalizedString("study", comment: ""), buddy.study)
-            cell.img_profile_picture.image = buddy.image
+            cell.img_profile_picture.image = buddy.photo
             cell.student_number = buddy.studentid
             cell.delegate=self
             return cell
@@ -139,7 +141,7 @@ extension ChooseBuddyViewController: BuddyChooseCellDelegate, BuddyMoreInfoCellD
         var buddy_name = ""
         for i in 0..<arrayOfBuddies.count
         {
-            if (arrayOfBuddies[i].student_number == student_number)
+            if (arrayOfBuddies[i].studentid == student_number)
             {
                 buddy_name = arrayOfBuddies[i].firstname
             }
@@ -156,7 +158,7 @@ extension ChooseBuddyViewController: BuddyChooseCellDelegate, BuddyMoreInfoCellD
         //API call om de studenten te koppelen
         var coachID = student_number
         var tutorantID = KeychainWrapper.standard.string(forKey: "StudentID")
-        ApiManager.MakeCoachTutorantMatch(coachID, tutorantID)
+        ApiManager.MakeCoachTutorantMatch(studentIDCoach: coachID, studentIDTutorant: tutorantID)
         
         //alert nieuwe buddy
         alert_title = NSLocalizedString("newBuddyTitle", comment: "")

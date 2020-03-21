@@ -85,9 +85,9 @@
             <connections>
                 <outlet property="btn_more_info" destination="sdf-Rd-SOt" id="uKN-sb-Phg"/>
                 <outlet property="img_profile_picture" destination="tAf-SI-08D" id="d1I-Dn-6tB"/>
-                <outlet property="lbl_age" destination="6kG-ed-SD7" id="Xhz-Gf-nhF"/>
                 <outlet property="lbl_name" destination="M2n-XY-tHI" id="PUV-D6-amb"/>
                 <outlet property="lbl_study" destination="X0x-do-Cr3" id="NYZ-du-smG"/>
+                <outlet property="lbl_studyyear" destination="6kG-ed-SD7" id="9uv-XO-Dfu"/>
             </connections>
             <point key="canvasLocation" x="131.8840579710145" y="142.63392857142856"/>
         </tableViewCell>
