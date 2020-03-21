@@ -10,8 +10,8 @@ import UIKit
 import SwiftKeychainWrapper
 
 class ViewController: UIViewController {
-
-   
+    
+    
     
     @IBOutlet weak var NavigationBAr: UINavigationItem!
     //@IBOutlet weak var RegisterButton: UIButton!
@@ -23,14 +23,16 @@ class ViewController: UIViewController {
     var isPressed: Bool = false
     override func viewDidLoad() {
         LoadingIndicator.isHidden = true
+        LoadingIndicator.color = .white
+        
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         //HeaderImage.image = UIImage(named: "header")
         
         LoginButton.setTitle(NSLocalizedString("login", comment: ""), for: .normal)
         //RegisterButton.setTitle(NSLocalizedString("registerhere", comment: ""), for: .normal)
-
-
+        
+        
         UsernameTextbox.placeholder = NSLocalizedString("username", comment: "")
         PasswordTextbox.placeholder = NSLocalizedString("password", comment: "")
         PasswordTextbox.isSecureTextEntry = true
@@ -54,37 +56,37 @@ class ViewController: UIViewController {
             let username = UsernameTextbox.text
             let password = PasswordTextbox.text
             if username != "" && password != ""{
-            ApiManager.LogUserIn(username: username!, password: password!).responseString { response in
-                let AuthToken =  response.result.value
-                self.LoadingIndicator.stopAnimating()
-                self.LoadingIndicator.isHidden = true
-                if AuthToken == nil || AuthToken == ""{
-                    self.isPressed = false
-                    print("wrong credentials")
-                    let wronginput = UIAlertController(title: NSLocalizedString("tryagain", comment: ""), message: NSLocalizedString("wrongInput", comment: ""), preferredStyle: .alert)
-
-                    wronginput.addAction(UIAlertAction(title: NSLocalizedString("tryagain", comment: ""), style: .default, handler: nil))
-
-                    self.present(wronginput, animated: true)
-                }else {
-                    KeychainWrapper.standard.set(username!, forKey: "StudentID")
-                    KeychainWrapper.standard.set(AuthToken!, forKey: "AuthToken")
-                    let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                    let vc = storyboard.instantiateViewController(withIdentifier: "TabBarViewController") as UIViewController
-                    self.navigationController?.pushViewController(vc, animated: true)
-                    
-                }
+                ApiManager.LogUserIn(username: username!, password: password!).responseString { response in
+                    let AuthToken =  response.result.value
+                    self.LoadingIndicator.stopAnimating()
+                    self.LoadingIndicator.isHidden = true
+                    if AuthToken == nil || AuthToken == ""{
+                        self.isPressed = false
+                        print("wrong credentials")
+                        let wronginput = UIAlertController(title: NSLocalizedString("tryagain", comment: ""), message: NSLocalizedString("wrongInput", comment: ""), preferredStyle: .alert)
+                        
+                        wronginput.addAction(UIAlertAction(title: NSLocalizedString("tryagain", comment: ""), style: .default, handler: nil))
+                        
+                        self.present(wronginput, animated: true)
+                    }else {
+                        KeychainWrapper.standard.set(username!, forKey: "StudentID")
+                        KeychainWrapper.standard.set(AuthToken!, forKey: "AuthToken")
+                        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                        let vc = storyboard.instantiateViewController(withIdentifier: "TabBarViewController") as UIViewController
+                        self.navigationController?.pushViewController(vc, animated: true)
+                        
+                    }
                 }
             }else{
                 isPressed = false
-            print("no credentials")
+                print("no credentials")
                 self.LoadingIndicator.stopAnimating()
                 self.LoadingIndicator.isHidden = true
                 
                 let wronginput = UIAlertController(title: NSLocalizedString("fill_in", comment: ""), message: NSLocalizedString("wrongInput", comment: ""), preferredStyle: .alert)
-
+                
                 wronginput.addAction(UIAlertAction(title: NSLocalizedString("tryagain", comment: ""), style: .default, handler: nil))
-
+                
                 present(wronginput, animated: true)
             }
             
@@ -94,16 +96,16 @@ class ViewController: UIViewController {
     override var preferredStatusBarStyle: UIStatusBarStyle{
         return UIStatusBarStyle.lightContent
     }
-
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: animated)
     }
-/*
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        navigationController?.setNavigationBarHidden(false, animated: animated)
-    }
-*/
+    /*
+     override func viewWillDisappear(_ animated: Bool) {
+     super.viewWillDisappear(animated)
+     navigationController?.setNavigationBarHidden(false, animated: animated)
+     }
+     */
 }
 

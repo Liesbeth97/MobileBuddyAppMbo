@@ -10,7 +10,7 @@ import UIKit
 
 class registerviewcontroller: UIViewController {
     
-
+    
     @IBOutlet weak var UsernameTextbox: UITextField!
     @IBOutlet weak var NavigationBar: UINavigationItem!
     @IBOutlet weak var PasswordCheckTextbox: UITextField!
@@ -30,7 +30,7 @@ class registerviewcontroller: UIViewController {
         NextButton.setTitle(NSLocalizedString("next", comment: ""), for: .normal)
         NextButton.backgroundColor = .InhollandPink
         NextButton.tintColor = UIColor.white
-       
+        
         NavigationBar.title = NSLocalizedString("register", comment: "")
         self.navigationController!.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor:UIColor.white]
         self.navigationController!.navigationBar.tintColor = #colorLiteral(red: 1, green: 0.99997437, blue: 0.9999912977, alpha: 1)
@@ -40,22 +40,22 @@ class registerviewcontroller: UIViewController {
         self.navigationController?.view.backgroundColor = .clear
         
         
- }
-
+    }
+    
     @IBAction func RegisterButtonClicked() {
         let username = UsernameTextbox.text!
         var password = ""
         if PasswordTextbox.text == PasswordCheckTextbox.text {
             password = PasswordTextbox.text!
         }
-        ApiManager.register(studentid: ((Int)(username) ?? 1), password: password)//.responseData(completionHandler: { [weak self] (response) in
-            //let jsonData = response.data!
-            //let decoder = JSONDecoder()
-            //let sendresult = try? decoder.decode(loginResult.self, from: jsonData)
-              //  print(sendresult)
-            //})
+        // ApiManager.register(studentid: ((Int)(username) ?? 1), password: password)//.responseData(completionHandler: { [weak self] (response) in
+        //let jsonData = response.data!
+        //let decoder = JSONDecoder()
+        //let sendresult = try? decoder.decode(loginResult.self, from: jsonData)
+        //  print(sendresult)
+        //})
         
     }
- 
+    
 }
 
