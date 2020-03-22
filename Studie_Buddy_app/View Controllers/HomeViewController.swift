@@ -24,7 +24,7 @@ struct NewNotifications {
     }
 }
 var NewNotificationsMessages: [NewNotifications] = []
-
+var hasCoach: Bool = true
 
 
 class homeviewcontroller: UIViewController {
@@ -46,13 +46,32 @@ class homeviewcontroller: UIViewController {
         self.navigationController?.navigationBar.isTranslucent = false
         self.navigationController?.view.backgroundColor = .clear
         
-        
-        checknewmessages()
-        print("Number of tutorqnts is: ",numberOfTutorants)
-        checkTutoranten()
-        self.TableView.dataSource = self as UITableViewDataSource
-        self.TableView.register(UINib(nibName: "HomeTableViewCell", bundle: nil), forCellReuseIdentifier: "HomeTableViewCell")
-        
+        if LoggedInStudent?.hbo_mbo == "mbo"
+        {
+            var studentID = LoggedInStudent?.studentid
+            var response = ApiManager.getCoach(studentIDTutorant: studentID)
+            if response != 200  //Student hasn't choosen a coach yet
+            {
+                hasCoach = false
+                self.TableView.dataSource = self as UITableViewDataSource
+                self.TableView.register(UINib(nibName: "HomeChooseBuddyCell", bundle: nil), forCellReuseIdentifier: "HomeChooseBuddyCell")
+            }
+            else
+            {
+                hasCoach = true
+                checknewmessages()
+                self.TableView.dataSource = self as UITableViewDataSource
+                self.TableView.register(UINib(nibName: "HomeTableViewCell", bundle: nil), forCellReuseIdentifier: "HomeTableViewCell")
+            }
+        }
+        else
+        {
+            checknewmessages()
+            print("Number of tutorqnts is: ",numberOfTutorants)
+            checkTutoranten()
+            self.TableView.dataSource = self as UITableViewDataSource
+            self.TableView.register(UINib(nibName: "HomeTableViewCell", bundle: nil), forCellReuseIdentifier: "HomeTableViewCell")
+        }
     }
     
     func checkTutoranten(){
@@ -125,11 +144,18 @@ class homeviewcontroller: UIViewController {
     }
 }
 
-
+extension homeviewcontroller: HomeBuddyChooseCellDelegate{
+    func clicked_start_match(){
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "ChooseBuddyViewController") as UIViewController
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+}
 
 extension homeviewcontroller: UITableViewDataSource, UITableViewDelegate{
     func tableView(_ TableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return NewNotificationsMessages.count
+        if hasCoach == false { return 1 }
+        else {   return NewNotificationsMessages.count}
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -143,17 +169,25 @@ extension homeviewcontroller: UITableViewDataSource, UITableViewDelegate{
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "HomeTableViewCell",
-                                                 for: indexPath) as! HomeTableViewCell
-        //cell.Label.text = MyObjects[indexPath.row].description
-        if newMessages == true{
-            let dateInput = NewNotificationsMessages[indexPath.row].created
-            let formatter = DateFormatter()
-            formatter.dateFormat = "dd.MM.yyyy"
-            cell.NotificationDate.text = formatter.string(from: dateInput)
-            cell.Notification.text = NewNotificationsMessages[indexPath.row].payload
+        if LoggedInStudent?.hbo_mbo == "hbo"{
+            let cell = tableView.dequeueReusableCell(withIdentifier: "HomeTableViewCell",
+                                                     for: indexPath) as! HomeTableViewCell
+            //cell.Label.text = MyObjects[indexPath.row].description
+            if newMessages == true{
+                let dateInput = NewNotificationsMessages[indexPath.row].created
+                let formatter = DateFormatter()
+                formatter.dateFormat = "dd.MM.yyyy"
+                cell.NotificationDate.text = formatter.string(from: dateInput)
+                cell.Notification.text = NewNotificationsMessages[indexPath.row].payload
+            }
+            return cell
         }
-        return cell
+        else{
+            let cell = tableView.dequeueReusableCell(withIdentifier: "HomeChooseBuddyCell",
+                                                     for: indexPath) as! HomeChooseBuddyCell
+            //cell.Label.text = MyObjects[indexPath.row].description
+            return cell
+        }
     }
 }
 

@@ -140,7 +140,18 @@ final class ApiManager{
             "AuthToken": "\(authToken!)",
             "AuthID": "\(authID!)"
         ]
-        return Alamofire.request(BaseURL + "api/coach\(studentIDCoach)",method: .get, headers: headers)
+        return Alamofire.request(BaseURL + "api/coach/\(studentIDCoach)",method: .get, headers: headers)
+    }
+    
+    static func getCoach(studentIDTutorant: Int)
+    {
+        let authToken = KeychainWrapper.standard.string(forKey: "AuthToken")
+        let authID = KeychainWrapper.standard.string(forKey: "StudentID")
+        let headers: [String : String] = [
+            "AuthToken": "\(authToken!)",
+            "AuthID": "\(authID!)"
+        ]
+        return Alamofire.request(BaseURL + "api/coachTutorant/tutorant/\(studentIDTutorant)",method: .get, headers: headers)
     }
 }
  

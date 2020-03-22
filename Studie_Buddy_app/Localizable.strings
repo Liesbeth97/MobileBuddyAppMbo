@@ -54,4 +54,5 @@
 "study"             = "Opleiding: %@";
 "bio"               = "Bio: %@";
 "studyyear"         = "Schooljaar: %@";
-
+"clickChooseBuddy"  = "Klik hier om een buddy te kiezen!";
+"clickChooseBuddyDescription" = "Je hebt nog geen buddy";
