@@ -1,38 +1,42 @@
-/* 
-  Localizable.strings
-  Studie_Buddy_app
+/*
+ Localizable.strings
+ Studie_Buddy_app
+ 
+ Created by Jordy Twisk on 02/12/2019.
+ Copyright © 2019 ProjectGroep5. All rights reserved.
+ */
 
-  Created by Jordy Twisk on 02/12/2019.
-  Copyright © 2019 ProjectGroep5. All rights reserved.
-*/
-
-"login"             = "Login";
-"username"          = "Username";
-"password"          = "Password";
-"registerhere"      = "Don't have a account? Register here!";
-"next"              = "Next";
-"cpassword"         = "Confirm password";
-"register"          = "Register";
-"profile"           = "Profile";
-"name"              = "Name";
-"bio"               = "Bio";
-"study"             = "Study";
-"bday"              = "Date of birth";
-"city"              = "City";
-"prestudy"          = "Pre study";
-"home"              = "Home";
-"messages"          = "Berichten";
-"send"              = "Send";
-"save"              = "Save";
-"newmessage"        = "Type a message...";
-"inbox"             = "Inbox";
-"tryagain"          = "Try again please!";
-"fill_in"           = "Please fill in your credentials.";
-"wrongInput"        = "Wrong Input, pleas try again.";
-"newtutortext"      = "Yes! You have a new buddy!";
-"newtutortype"      = "NewTutor";
-"newMessagetext"    = "You got a new message!";
-"newMessagetype"    = "NewMessage";
+"login" = "Login";
+"username" = "Username";
+"password" = "Password";
+"registerhere" = "Don't have a account? Register here!";
+"next" = "Next";
+"cpassword" = "Confirm password";
+"register" = "Register";
+"profile"  = "Profile";
+"name" = "Name";
+"bio" = "Bio";
+"study" = "Study";
+"bday" = "Date of birth";
+"city" = "City";
+"prestudy" = "Pre study";
+"home" = "Home";
+"messages" = "Berichten";
+"send" = "Send";
+"save" = "Save";
+"newmessage" = "Type a message...";
+"inbox" = "Inbox";
+"tryagain" = "Try again please!";
+"fill_in" = "Please fill in your credentials.";
+"wrongInput" = "Wrong Input, pleas try again.";
+"newtutortext" = "Yes! You have a new buddy!";
+"newtutortype" = "NewTutor";
+"newMessagetext" = "You got a new message!";
+"newMessagetype" = "NewMessage";
+"ChoosePic" = "Choose picture";
+"NewTutorTitle" = "You have a new tutor!";
+"NewTutorMSG" = "You have a new match with a tutor, send him/her a message now!";
+"Ok" = "Oke!";
 
 "chooseBuddyHeader" = "Kies je buddy";
 "moreInfo"          = "Meer info";
@@ -49,5 +53,5 @@
 "age"               = "Leeftijd: %@";
 "study"             = "Opleiding: %@";
 "bio"               = "Bio: %@";
-"studyyear"         = "Schooljaar: %@"
+"studyyear"         = "Schooljaar: %@";
 

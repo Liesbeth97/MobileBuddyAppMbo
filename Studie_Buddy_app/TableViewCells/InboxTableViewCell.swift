@@ -12,7 +12,7 @@ import UIKit
 
 
 final class InboxTableViewCell: UITableViewCell{
-
+    
     @IBOutlet weak var NewMessagesLabel: UILabel!
     @IBOutlet weak var InboxDateLabel: UILabel!
     @IBOutlet weak var InboxChatName: UILabel!
@@ -29,8 +29,10 @@ final class InboxTableViewCell: UITableViewCell{
         InboxLatestChat.textColor = .lightGray
         InboxChatName.textColor = .black
         bubblebackgroundview.backgroundColor = .InhollandPink
-        NewMessagesLabel.textColor = .white
-
+        NewMessagesLabel.textColor = .black
+        
+        NewMessagesLabel.text = "10"
+        
         addSubview(NewMessagesLabel)
         NewMessagesLabel.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
         NewMessagesLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -51,11 +53,11 @@ final class InboxTableViewCell: UITableViewCell{
             bubblebackgroundview.trailingAnchor.constraint(equalTo: NewMessagesLabel.trailingAnchor, constant:0)
         ]
         NSLayoutConstraint.activate(constraints)
- }
+    }
     
     override func prepareForReuse() {
         super.prepareForReuse()
-       // MessagePayloadLabel.text = nil
+        // MessagePayloadLabel.text = nil
         
     }
 }

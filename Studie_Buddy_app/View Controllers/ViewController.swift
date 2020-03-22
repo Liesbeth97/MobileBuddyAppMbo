@@ -9,6 +9,8 @@
 import UIKit
 import SwiftKeychainWrapper
 
+var LoggedInStudent: Student? = nil
+
 class ViewController: UIViewController {
     
     
@@ -71,6 +73,9 @@ class ViewController: UIViewController {
                     }else {
                         KeychainWrapper.standard.set(username!, forKey: "StudentID")
                         KeychainWrapper.standard.set(AuthToken!, forKey: "AuthToken")
+                        
+                        MakeCallStudentHboMbo()
+                        
                         let storyboard = UIStoryboard(name: "Main", bundle: nil)
                         let vc = storyboard.instantiateViewController(withIdentifier: "TabBarViewController") as UIViewController
                         self.navigationController?.pushViewController(vc, animated: true)
@@ -89,10 +94,16 @@ class ViewController: UIViewController {
                 
                 present(wronginput, animated: true)
             }
-            
         }
-        
     }
+    
+    func MakeCallStudentHboMbo(){
+        var studentID = UsernameTextbox.text
+        var response = ApiManager.getCoachByStudentId(studentIDCoach: studentID)
+        if response == 200  {   LoggedInStudent?.hbo_mbo = "hbo"        }
+        else                {   LoggedInStudent?.hbo_mbo = "mbo"        }
+    }
+    
     override var preferredStatusBarStyle: UIStatusBarStyle{
         return UIStatusBarStyle.lightContent
     }
