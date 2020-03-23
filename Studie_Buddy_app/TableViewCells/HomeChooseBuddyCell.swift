@@ -16,6 +16,7 @@ class HomeChooseBuddyCell: UITableViewCell {
 
     @IBOutlet weak var lbl_description: UILabel!
     @IBOutlet weak var lbl_date: UILabel!
+    @IBOutlet weak var img_settings_icon: UIImageView!
     @IBOutlet weak var btn_choose_buddy: UIButton!
     
     var delegate: HomeBuddyChooseCellDelegate?
@@ -30,6 +31,7 @@ class HomeChooseBuddyCell: UITableViewCell {
         
         lbl_description.text = NSLocalizedString("clickChooseBuddyDescription", comment: "")
         lbl_date.text = result
+        img_settings_icon.image = #imageLiteral(resourceName: "settings_icon")
         btn_choose_buddy.setTitle(NSLocalizedString("clickChooseBuddy", comment: ""), for: .normal)
     }
 

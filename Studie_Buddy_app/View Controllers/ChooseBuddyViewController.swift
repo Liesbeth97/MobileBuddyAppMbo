@@ -165,9 +165,10 @@ extension ChooseBuddyViewController: BuddyChooseCellDelegate, BuddyMoreInfoCellD
         alert_message = String(format: NSLocalizedString("newBuddyMsg", comment: ""), buddy_name)
         alert = UIAlertController(title: alert_title, message: alert_message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: NSLocalizedString("oke", comment: ""), style: .default, handler: nil))
-        present(alert, animated: true, completion: nil)
-        
-        //ga naar home
-        //...
+        present(alert, animated: true, completion: goToHome)
+    }
+    
+    func goToHome(alert: UIAlertAction!){
+        self.performSegue(withIdentifier: "unwindToHomeSegueID", sender: self)
     }
 }
