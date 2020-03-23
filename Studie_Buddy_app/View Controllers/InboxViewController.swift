@@ -15,6 +15,7 @@ import SwiftKeychainWrapper
 
 var tutoranten: [Tutorants] = []
 var tutorantenProfiles: [Student] = []
+var coachProfile: Student? = nil
 var LatestMessage: String = ""
 
 class inboxviewcontroller: UIViewController {
@@ -35,7 +36,8 @@ class inboxviewcontroller: UIViewController {
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.isTranslucent = false
         self.navigationController?.view.backgroundColor = .clear
-        loadnewtutorants()
+        if LoggedInStudent?.hbo_mbo == "hbo"    { loadnewtutorants()    }
+        else                                    { loadCoach()           }
         CheckLatestMessage()
         
         InboxTableView.separatorStyle = .none
@@ -44,11 +46,27 @@ class inboxviewcontroller: UIViewController {
         // _ = Timer.scheduledTimer(timeInterval: 5.0,target: self,selector: #selector(execute),userInfo: nil,repeats: true)
     }
     
+    func loadCoach(){
+        let coachID = 0
+        ApiManager.getCoach(studentIDTutorant: LoggedInStudent?.studentid).responseData(completionHandler: { [weak self] (response) in
+            let jsonData = response.data!
+            let decoder = JSONDecoder()
+            Studentprofile = try? decoder.decode(Student.self, from: jsonData)
+            coachID = Studentprofile?.studentid
+        })
+        ApiManager.getProfile(coachID).responseData(completionHandler: { [weak self] (response) in
+            let jsonData = response.data!
+            let decoder = JSONDecoder()
+            Studentprofile = try? decoder.decode(Student.self, from: jsonData)
+            coachProfile = Studentprofile
+        })
+        self?.InboxTableView.reloadData()
+    }
     
     func loadnewtutorants(){
         tutorantenProfiles = []
         var indexnumber = 0
-        ApiManager.getTutors(studentID: 31214).responseData(completionHandler: { [weak self] (response) in
+        ApiManager.getTutors(studentID: LoggedInStudent?.studentid).responseData(completionHandler: { [weak self] (response) in
             let jsonData = response.data!
             let decoder = JSONDecoder()
             let tutorants = try? decoder.decode([Tutorants].self, from: jsonData)
@@ -110,8 +128,12 @@ class inboxviewcontroller: UIViewController {
 extension inboxviewcontroller: UITableViewDataSource, UITableViewDelegate{
     
     func tableView(_ TableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print(tutorantenProfiles.count)
-        return  tutorantenProfiles.count
+        if LoggedInStudent?.hbo_mbo == "hbo"{
+            print(tutorantenProfiles.count)
+            return  tutorantenProfiles.count
+        }
+        else {  return 1    }   //Coach chat
+        // +1 for the groupschat
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -123,7 +145,8 @@ extension inboxviewcontroller: UITableViewDataSource, UITableViewDelegate{
         print(indexPath)
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "messagesviewcontroller") as! messagesviewcontroller
-        vc.ChatName = tutorantenProfiles[indexPath.row].firstname
+        if LoggedInStudent?.hbo_mbo == "hbo" { vc.ChatName = tutorantenProfiles[indexPath.row].firstname }
+        else                                 { vc.ChatName = coachProfile?.firstname }
         navigationController?.pushViewController(vc, animated: true)
         
         
@@ -133,10 +156,13 @@ extension inboxviewcontroller: UITableViewDataSource, UITableViewDelegate{
         let cell = tableView.dequeueReusableCell(withIdentifier: "InboxTableViewCell",
                                                  for: indexPath) as! InboxTableViewCell
         cell.InboxProfileImage.image = UIImage(named: "Profile")
-        print("tutoranten profiles count is :", tutorantenProfiles.count)
-        if tutorantenProfiles.count != 0 {
-            cell.InboxChatName.text = tutorantenProfiles[indexPath.row].firstname
+        if LoggedInStudent?.hbo_mbo == "hbo" {
+            print("tutoranten profiles count is :", tutorantenProfiles.count)
+            if tutorantenProfiles.count != 0 {
+                cell.InboxChatName.text = tutorantenProfiles[indexPath.row].firstname
+            }
         }
+        else {  cell.InboxChatName.text = coachProfile?.firstname }
         cell.InboxDateLabel.text = "8/1/2020"
         let message = LatestMessage
         let trimmed = message.trimmingCharacters(in: .whitespacesAndNewlines)

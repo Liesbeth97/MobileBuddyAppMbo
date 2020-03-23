@@ -153,7 +153,7 @@ UINavigationControllerDelegate {
     }
     
     func Makeprofilecall(){
-        ApiManager.getProfile(studentID: 123456).responseData(completionHandler: { [weak self] (response) in
+        ApiManager.getProfile(studentID: LoggedInStudent?.studentid).responseData(completionHandler: { [weak self] (response) in
             self!.UpdateIndicator.isHidden = false
             let jsonData = response.data!
             let decoder = JSONDecoder()
