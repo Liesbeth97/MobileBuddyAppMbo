@@ -99,9 +99,13 @@ class ViewController: UIViewController {
     
     func MakeCallStudentHboMbo(){
         var studentID = UsernameTextbox.text
-        var response = ApiManager.getCoachByStudentId(studentIDCoach: studentID)
-        if response == 200  {   LoggedInStudent?.hbo_mbo = "hbo"        }
-        else                {   LoggedInStudent?.hbo_mbo = "mbo"        }
+        ApiManager.getCoachByStudentId(studentIDCoach: studentID).responseData(completionHandler: { [weak self] (response) in
+            let jsonData = response.data!
+            let decoder = JSONDecoder()
+            let coach = try? decoder.decode([Student].self, from: jsonData)
+            if coach != nil && response == 200   {   LoggedInStudent?.hbo_mbo = "hbo"    }
+            else                                 {   LoggedInStudent?.hbo_mbo = "mbo"    }
+            })
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle{

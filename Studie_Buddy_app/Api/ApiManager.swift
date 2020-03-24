@@ -143,7 +143,12 @@ final class ApiManager{
             "AuthToken": "\(authToken!)",
             "AuthID": "\(authID!)"
         ]
-        return Alamofire.request(BaseURL + "api/coachTutorant",method: .put, headers: headers)/*.request
+        let parameters: [String : Any] = [
+            "studentIDCoach": studentIDCoach,
+            "studentIDTutorant": studentIDTutorant,
+            "status": "pending"
+        ]
+        return Alamofire.request(BaseURL + "api/coachTutorant/tutorant/\(studentIDTutorant)",method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: headers)/*.request
             {
                 "studentIDCoach": studentIDCoach,
                 "studentIDTutorant": studentIDTutorant,
@@ -159,7 +164,7 @@ final class ApiManager{
             "AuthToken": "\(authToken!)",
             "AuthID": "\(authID!)"
         ]
-        return Alamofire.request(BaseURL + "api/coach/\(studentIDCoach)",method: .get, headers: headers)
+        return Alamofire.request(BaseURL + "api/profile/coach/\(studentIDCoach)",method: .get, headers: headers)
     }
     
     static func getCoach(studentIDTutorant: Int)

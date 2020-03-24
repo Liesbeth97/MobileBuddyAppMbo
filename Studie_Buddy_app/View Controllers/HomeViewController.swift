@@ -49,20 +49,25 @@ class homeviewcontroller: UIViewController {
         if LoggedInStudent?.hbo_mbo == "mbo"
         {
             var studentID = LoggedInStudent?.studentid
-            var response = ApiManager.getCoach(studentIDTutorant: studentID)
-            if response != 200  //Student hasn't choosen a coach yet
-            {
-                hasCoach = false
-                self.TableView.dataSource = self as UITableViewDataSource
-                self.TableView.register(UINib(nibName: "HomeChooseBuddyCell", bundle: nil), forCellReuseIdentifier: "HomeChooseBuddyCell")
-            }
-            else
-            {
-                hasCoach = true
-                checknewmessages()
-                self.TableView.dataSource = self as UITableViewDataSource
-                self.TableView.register(UINib(nibName: "HomeTableViewCell", bundle: nil), forCellReuseIdentifier: "HomeTableViewCell")
-            }
+            ApiManager.getCoach(studentIDTutorant: studentID).responseData(completionHandler: { [weak self] (response) in
+                
+                let jsonData = response.data!
+                let decoder = JSONDecoder()
+                let coach_connection = try? decoder.decode([Tutorants].self, from: jsonData)
+                if coach_connection != nil && response == 200  //student has a coach
+                {
+                    hasCoach = true
+                    checknewmessages()
+                    self.TableView.dataSource = self as UITableViewDataSource
+                    self.TableView.register(UINib(nibName: "HomeTableViewCell", bundle: nil), forCellReuseIdentifier: "HomeTableViewCell")
+                }
+                else     //Student hasn't choosen a coach yet
+                {
+                    hasCoach = false
+                    self.TableView.dataSource = self as UITableViewDataSource
+                    self.TableView.register(UINib(nibName: "HomeChooseBuddyCell", bundle: nil), forCellReuseIdentifier: "HomeChooseBuddyCell")
+                }
+            })
         }
         else
         {
