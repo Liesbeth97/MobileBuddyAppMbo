@@ -13,6 +13,13 @@ import UIKit
 
 final class InboxTableViewCell: UITableViewCell{
     
+    var UnreadMessages: Bool!{
+        didSet{
+            bubblebackgroundview.backgroundColor = UnreadMessages ? UIColor.white : UIColor.InhollandPink
+            //NewMessagesLabel.textColor = incomming ? .black : .white
+        }
+    }
+    
     @IBOutlet weak var NewMessagesLabel: UILabel!
     @IBOutlet weak var InboxDateLabel: UILabel!
     @IBOutlet weak var InboxChatName: UILabel!

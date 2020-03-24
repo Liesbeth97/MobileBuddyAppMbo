@@ -5,6 +5,15 @@
 //  Created by Jordy Twisk on 05/12/2019.
 //  Copyright © 2019 ProjectGroep5. All rights reserved.
 //
+/*
+ pod 'Alamofire'
+ pod 'Kingfisher'
+ pod 'SwiftKeychainWrapper'
+ pod 'Fabric'
+ pod 'SwiftyJSON'
+ pod 'SAConfettiView'
+ 
+ */
 
 import Foundation
 import Alamofire
@@ -103,6 +112,16 @@ final class ApiManager{
             "receiverID": (receiverid)
         ]
         return Alamofire.request(BaseURL + "api/message",method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: headers)
+    }
+    
+    static func SaveImage (ImageUrl: URL) -> DataRequest{
+        let ID = KeychainWrapper.standard.string(forKey: "StudentID")
+        let parameters: [String : Any] = [
+            "key": "99f5ca23983d05472617629cd9834816",
+            "image": "\(ImageUrl)",
+            "name": "\(ID)"
+        ]
+        return AF.request("https://api.imgbb.com/1/upload", method: .post, parameters: parameters)
     }
     
     static func getAllCoachProfiles() -> DataRequest
